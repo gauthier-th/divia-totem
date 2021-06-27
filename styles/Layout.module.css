@@ -1,0 +1,6 @@
+.pageContainer {
+  background-color: var(--surface-b);
+  color: var(--text-color);
+  min-height: 100vh;
+  padding: 16px;
+}
