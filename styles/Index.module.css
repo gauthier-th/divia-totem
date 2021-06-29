@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+.content {
+  text-align: center;
+}
+.dropdown {
+  margin-top: 16px;
+  width: 100%;
+}
+.select {
+  margin-top: 16px;
+}
+
+.passagesContainer {
+  margin-top: 16px;
+}
+.passages {
+  display: flex;
+  flex-direction: column;
+}
