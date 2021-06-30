@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown'
 import { SelectButton } from 'primereact/selectbutton'
@@ -7,7 +8,7 @@ import DiviaAPI from 'divia-api'
 import useStateWithLocalStorage from '../utils/useStateWithLocalStorage'
 import styles from '../styles/Index.module.css'
 
-type Favorite = {
+type FavoriteType = {
   line: string;
   direction: string;
   stop: string;
@@ -20,7 +21,7 @@ export default function Index() {
   const [lineDirection, setLineDirection] = useState<string>('A')
   const [stopId, setStopId] = useState<string>()
   const [passages, setPassages] = useState<{ text: string, date: Date }[] | null>(null)
-  const [favorites, setFavorites] = useStateWithLocalStorage<Favorite[]>('favorites', [])
+  const [favorites, setFavorites] = useStateWithLocalStorage<FavoriteType[]>('favorites', [])
 
   const getLineByDirection = (lineCode: string, direction: string) => (
     divia.getLine(divia.lines.find(line => line.codetotem === lineCode && line.senstotem === direction)?.id)
@@ -49,11 +50,12 @@ export default function Index() {
   useEffect(() => {
     if (!lineCode || !lineDirection || !stopId)
       return
-    getLineByDirection(lineCode, lineDirection).getStop(stopId).totem().then(setPassages)
+    const stop = getLineByDirection(lineCode, lineDirection).getStop(stopId)
+    stop.totem().then(setPassages).catch(() => {})
   }, [lineCode, lineDirection, stopId])
 
-  const getFavorite = (lineCode: string, lineDirection: string, stopId: string): Favorite | undefined => (
-    favorites.find(({ line, direction, stop }) => line === lineCode && direction === lineDirection && stop === stopId)
+  const getFavorite = (lineCode: string, lineDirection: string, stopId: string): FavoriteType | undefined => (
+    (favorites || []).find(({ line, direction, stop }) => line === lineCode && direction === lineDirection && stop === stopId)
   ) 
 
   return <>
@@ -145,6 +147,8 @@ export default function Index() {
                       offLabel=''
                       className='p-button-rounded'
                       onChange={() => {
+                        if (!favorites)
+                          return
                         const fav = getFavorite(lineCode, lineDirection, stopId)
                         const newFavorites = favorites.slice()
                         if (!fav)
@@ -160,7 +164,49 @@ export default function Index() {
             </>}
           </div>
         </>}
+        <h2 className={styles.favoritesTitle}>Favoris</h2>
+        {(!favorites || favorites.length === 0 || !divia.reseau) && 'Aucun favoris pour le moment.'}
+        {favorites && divia.reseau && <div className={styles.favorites}>
+          {favorites.map((fav, i) => (
+            <Favorite key={i} favorite={fav} />
+          ))}
+        </div>}
       </div>
     </div>
   </>
+}
+
+const Favorite = ({ favorite }: { favorite: FavoriteType }) => {
+  const { line: lineId, direction, stop: stopId } = favorite
+  const line = divia.getLine(divia.lines.find(line => line.codetotem === lineId && line.senstotem === direction).id)
+  const stop = line.getStop(stopId)
+
+  const [passages, setPassages] = useState<{ text: string, date: Date }[] | null>(null)
+  useEffect(() => {
+    stop.totem().then(setPassages).catch(() => {})
+  }, [])
+
+  return <div className={styles.favorite}>
+    <div>
+      <img src={line.data.picto} alt={line.data.nom_commercial} />
+    </div>
+    <div className={styles.stop}>
+      {stop.data.nom}
+    </div>
+    <div className={styles.direction}>
+      <i className='pi pi-angle-right' />
+      <span>{line.data.direction}</span>
+    </div>
+    <div className={styles.passages}>
+      {passages === null && 'Chargement...'}
+      {passages !== null && <>
+        {/* {passages.length === 0 && 'Aucun prochains passage.'}
+        {passages.length === 1 && 'Prochain passage :'}
+        {passages.length > 1 && 'Prochains passages :'} */}
+        {/* <div className={styles.passages}> */}
+          {passages.map((passage, i) => <span key={i}>{passage.text}</span>)}
+        {/* </div> */}
+      </>}
+    </div>
+  </div>
 }

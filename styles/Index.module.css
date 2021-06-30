@@ -20,8 +20,48 @@
   display: flex;
   justify-content: space-between;
 }
-.passages {
+.passagesContainer .passages {
+  display: flex;
+  /* flex-direction: column; */
+  /* text-align: left; */
+  justify-content: space-evenly;
+}
+
+.favoritesTitle {
+  margin-top: 32px;
+}
+.favorites {
+  display: flex;
+}
+.favorite {
+  text-align: center;
+  border: 1px solid #333;
+  border-radius: 3px;
+  padding: 6px;
+  flex-basis: 50%;
   display: flex;
   flex-direction: column;
-  text-align: left;
+}
+.favorite:nth-child(2n) {
+  margin-left: 4px;
+}
+.favorite:nth-child(2n+1) {
+  margin-right: 4px;
+}
+.favorite img {
+  height: 24px;
+}
+.favorite .stop {
+  font-size: 1.1rem;
+}
+.favorite .direction {
+  font-size: 0.8rem;
+}
+.favorite .direction i {
+  vertical-align: bottom;
+}
+.favorite .passages {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-evenly;
 }
