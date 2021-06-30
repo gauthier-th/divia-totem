@@ -23,8 +23,6 @@
 }
 .passagesContainer .passages {
   display: flex;
-  /* flex-direction: column; */
-  /* text-align: left; */
   justify-content: space-evenly;
 }
 
@@ -38,10 +36,9 @@
 }
 .favorite {
   text-align: center;
-  border: 1px solid #333;
+  border: 1px solid var(--surface-d);
   border-radius: 3px;
   padding: 6px;
-  /* flex-basis: calc(50% - 4px); */
   margin-top: 8px;
   position: relative;
 }
@@ -49,10 +46,6 @@
   margin: -6px;
   position: absolute;
   right: 6px;
-}
-.favoriteTitle {
-  /* display: flex;
-  justify-content: space-between; */
 }
 .favorite:nth-child(2n) {
   margin-left: 4px;
@@ -76,4 +69,21 @@
   margin-top: 8px;
   display: flex;
   justify-content: space-evenly;
+}
+
+.footer {
+  margin-top: 32px;
+}
+.footer::before {
+  content: "";
+  width: 70%;
+  display: block;
+  top: -12px;
+  left: 15%;
+  height: 1px;
+  background-color: var(--surface-d);
+  position: relative;
+}
+.footer a {
+  text-decoration: underline;
 }

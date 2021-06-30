@@ -186,6 +186,11 @@ export default function Index() {
             />
           ))}
         </div>}
+        <div className={styles.footer}>
+          Site créé par <a href='https://gauthierth.fr/' target='_blank' rel='noopener noreferrer'>gauthier-th</a>
+          <br />
+          <a href='https://github.com/gauthier-th/divia-totem' target='_blank' rel='noopener noreferrer'>Source sur GitHub</a>
+        </div>
       </div>
     </div>
   </>
