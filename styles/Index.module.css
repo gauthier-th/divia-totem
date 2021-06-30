@@ -16,7 +16,12 @@
 .passagesContainer {
   margin-top: 16px;
 }
+.passagesTitle {
+  display: flex;
+  justify-content: space-between;
+}
 .passages {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
