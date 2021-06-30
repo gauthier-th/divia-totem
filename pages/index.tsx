@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown'
+import { Button } from 'primereact/button'
 import { SelectButton } from 'primereact/selectbutton'
 import { ToggleButton } from 'primereact/togglebutton'
 import DiviaAPI from 'divia-api'
@@ -130,51 +131,59 @@ export default function Index() {
             />
           </>}
           <div className={styles.passagesContainer}>
-            {!passages && lineCode && lineDirection && stopId && <>
-              Chargement...
-            </>}
-            {passages && <>
-              <div className={styles.passagesTitle}>
-                <div>
+            <div className={styles.passagesTitle}>
+              <div>
+                {!passages && lineCode && lineDirection && stopId && <>
+                  Chargement...
+                </>}
+                {passages && <>
                   {passages.length === 0 && 'Aucun prochains passage.'}
                   {passages.length === 1 && 'Prochain passage :'}
                   {passages.length > 1 && 'Prochains passages :'}
                   <div className={styles.passages}>
                     {passages.map((passage, i) => <span key={i}>{passage.text}</span>)}
                   </div>
-                </div>
-                <div>
-                  {stopId && <>
-                    <ToggleButton
-                      checked={!!getFavorite(lineCode, lineDirection, stopId)}
-                      onIcon='pi pi-star'
-                      offIcon='pi pi-star-o'
-                      onLabel=''
-                      offLabel=''
-                      className='p-button-rounded'
-                      onChange={() => {
-                        if (!favorites)
-                          return
-                        const fav = getFavorite(lineCode, lineDirection, stopId)
-                        const newFavorites = favorites.slice()
-                        if (!fav)
-                          newFavorites.push({ line: lineCode, direction: lineDirection, stop: stopId })
-                        else
-                          newFavorites.splice(favorites.indexOf(fav))
-                        setFavorites(newFavorites)
-                      }}
-                    />
-                  </>}
-                </div>
+                </>}
               </div>
-            </>}
+              <div>
+                {stopId && <>
+                  <ToggleButton
+                    checked={!!getFavorite(lineCode, lineDirection, stopId)}
+                    onIcon='pi pi-star'
+                    offIcon='pi pi-star-o'
+                    onLabel=''
+                    offLabel=''
+                    className='p-button-rounded'
+                    onChange={() => {
+                      if (!favorites)
+                        return
+                      const fav = getFavorite(lineCode, lineDirection, stopId)
+                      const newFavorites = favorites.slice()
+                      if (!fav)
+                        newFavorites.push({ line: lineCode, direction: lineDirection, stop: stopId })
+                      else
+                        newFavorites.splice(favorites.indexOf(fav))
+                      setFavorites(newFavorites)
+                    }}
+                  />
+                </>}
+              </div>
+            </div>
           </div>
         </>}
         <h2 className={styles.favoritesTitle}>Favoris</h2>
         {(!favorites || favorites.length === 0 || !divia.reseau) && 'Aucun favoris pour le moment.'}
         {favorites && divia.reseau && <div className={styles.favorites}>
           {favorites.map((fav, i) => (
-            <Favorite key={i} favorite={fav} />
+            <Favorite
+              key={i}
+              favorite={fav}
+              onRemove={() => {
+                const newFavorites = favorites.slice()
+                newFavorites.splice(favorites.indexOf(fav))
+                setFavorites(newFavorites)
+              }}
+            />
           ))}
         </div>}
       </div>
@@ -182,7 +191,7 @@ export default function Index() {
   </>
 }
 
-const Favorite = ({ favorite }: { favorite: FavoriteType }) => {
+const Favorite = ({ favorite, onRemove }: { favorite: FavoriteType, onRemove?: () => void }) => {
   const { line: lineId, direction, stop: stopId } = favorite
   const line = divia.getLine(divia.lines.find(line => line.codetotem === lineId && line.senstotem === direction).id)
   const stop = line.getStop(stopId)
@@ -199,7 +208,16 @@ const Favorite = ({ favorite }: { favorite: FavoriteType }) => {
   }, [])
 
   return <div className={styles.favorite}>
-    <div>
+    <Button
+      icon='pi pi-times'
+      className='p-button-rounded p-button-danger p-button-text p-button-sm'
+      onClick={() => {
+        if (onRemove)
+          onRemove()
+      }}
+    />
+    <div className={styles.favoriteTitle}>
+      {/* <div /> */}
       <img src={line.data.picto} alt={line.data.nom_commercial} />
     </div>
     <div className={styles.stop}>

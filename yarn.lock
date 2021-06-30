@@ -859,10 +859,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-divia-api@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/divia-api/-/divia-api-2.2.1.tgz#703fe7be32184b2b1178a3416cbf65d679b25610"
-  integrity sha512-pxjhRerYAxPNJ3Z3GgLLz4u3GJekW1su4PxV3QJMU6GHL27ZOiCKX/NiVFjiF0l2QX74zE00kltSAauzeB62Vg==
+divia-api@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/divia-api/-/divia-api-2.2.2.tgz#bdfa7235a048d45f1c7d1aa99771cfb871f810fc"
+  integrity sha512-JynJvtAutV9tenppP0N/UYrjKaEtc12j5alKoMG7dCbbWDeNuzLbHBlwD/s7tpdFEzMth7eoypEUvM6Zq+/9Pg==
   dependencies:
     isomorphic-unfetch "^3.1.0"
     jsonwebtoken "^8.5.1"
