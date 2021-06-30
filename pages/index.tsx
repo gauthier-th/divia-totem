@@ -52,6 +52,12 @@ export default function Index() {
       return
     const stop = getLineByDirection(lineCode, lineDirection).getStop(stopId)
     stop.totem().then(setPassages).catch(() => {})
+    const interval = setInterval(() => {
+      stop.totem().then(setPassages).catch(() => {})
+    }, 15000)
+    return () => {
+      clearInterval(interval)
+    }
   }, [lineCode, lineDirection, stopId])
 
   const getFavorite = (lineCode: string, lineDirection: string, stopId: string): FavoriteType | undefined => (
@@ -184,6 +190,12 @@ const Favorite = ({ favorite }: { favorite: FavoriteType }) => {
   const [passages, setPassages] = useState<{ text: string, date: Date }[] | null>(null)
   useEffect(() => {
     stop.totem().then(setPassages).catch(() => {})
+    const interval = setInterval(() => {
+      stop.totem().then(setPassages).catch(() => {})
+    }, 15000)
+    return () => {
+      clearInterval(interval)
+    }
   }, [])
 
   return <div className={styles.favorite}>
