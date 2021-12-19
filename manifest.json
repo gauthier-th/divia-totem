@@ -1,0 +1,28 @@
+{
+  "theme_color": "#ce007c",
+  "background_color": "#000000",
+  "description": "Prochain passages des trams et bus de Divia.",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "Scope": "/",
+  "icons": [
+    {
+      "src": "/icons/divia-bus-tram-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/divia-bus-tram-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/divia-bus-tram-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "name": "Passages Totem pour Divia",
+  "short_name": "Divia Totem",
+  "start_url": "/"
+}

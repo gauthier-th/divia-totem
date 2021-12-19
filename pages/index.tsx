@@ -68,8 +68,13 @@ export default function Index() {
   return <>
     <Head>
       <title>Divia Totem</title>
-      <meta name="description" content="Prochain passages des trams et bus de Divia" />
+      <meta name="description" content="Prochain passages des trams et bus de Divia." />
       <link rel="icon" href="/favicon.ico" />
+      <link rel="manifest" href="/manifest.json" />
+      <link rel="apple-touch-icon" href="/icons/divia-bus-tram-192.png" />
+      <link rel="apple-touch-startup-image" href="icon.png" />
+      <meta name="theme-color" content="#ce007c" />
+      <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     </Head>
     <div className={styles.container}>
       <div className={styles.content}>
