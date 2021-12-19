@@ -31,3 +31,9 @@ Démarrage de la version de production du site :
 ```
 yarn build
 ```
+
+## Licence
+
+Licence MIT
+
+Copyright (c) 2021 gauthier-th (mail@gauthier-th.fr)
