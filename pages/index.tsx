@@ -75,7 +75,7 @@ export default function Index() {
       <link rel="apple-touch-startup-image" href="icon.png" />
       <meta name="theme-color" content="#ce007c" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-capable" content="yes" />
     </Head>
     <div className={styles.container}>
       <div className={styles.content}>
