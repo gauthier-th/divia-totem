@@ -2,7 +2,7 @@
   "theme_color": "#ce007c",
   "background_color": "#000000",
   "description": "Prochain passages des trams et bus de Divia.",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",
   "icons": [
@@ -24,5 +24,6 @@
   ],
   "name": "Passages Totem pour Divia",
   "short_name": "Divia Totem",
-  "start_url": "/"
+  "start_url": "/",
+  "id": "/"
 }
