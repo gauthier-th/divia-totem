@@ -1,0 +1,13 @@
+name: divia-totem
+services:
+  app:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app/
+      - /usr/src/app/node_modules 
+    ports:
+      - 3018:3000
+    environment:
+      - PORT=3000
+      - TZ=Europe/Paris
