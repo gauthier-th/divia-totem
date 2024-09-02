@@ -11,3 +11,4 @@ services:
     environment:
       - PORT=3000
       - TZ=Europe/Paris
+    restart: unless-stopped
